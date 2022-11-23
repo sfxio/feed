@@ -28,8 +28,12 @@
               <BaseButton
                 class="max-w-full px-8 bg-gradient-to-r from-[#468ef9] to-[#0c66ee] border border-[#0c66ee] text-white rounded-md"
                 type="submit"
+                :disabled="isLoading"
               >
-                <template v-if="isLoading">
+                <template v-if="isSuccess">
+                  Subscribed
+                </template>
+                <template v-else-if="isLoading">
                   Loading...
                 </template>
                 <template v-else>
@@ -317,6 +321,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isSuccess: false,
       email: '',
       selected: 0,
       dropdownConcurency: false,
@@ -505,6 +510,7 @@ export default {
         await submit({
           email: this.email,
         })
+        this.isSuccess = true
       } finally {
         this.isLoading = false
       }
