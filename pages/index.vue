@@ -3,7 +3,7 @@
     <!-- Hero section -->
     <section id="hero" class="w-full pb-24">
       <BaseSection>
-        <div class="col-span-12 lg:col-span-6 mt-12 xl:mt-10 space-y-4 sm:space-y-6 px-6 md:text-center sm:text-left">
+        <div class="col-span-12 lg:col-span-6 mt-12 xl:mt-10 space-y-4 sm:space-y-6 px-6">
           <div class="px-4 py-2 rounded-full bg-gradient-to-r from-[#468ef9] to-[#0c66ee] text-white inline-block">
             <span class="text-base font-semibold">Coming soon</span>
           </div>
