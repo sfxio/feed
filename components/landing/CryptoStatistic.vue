@@ -17,8 +17,8 @@
             <thead>
               <tr>
                 <th class="text-left text-sm font-medium text-gray-500">Name</th>
-                <th class="text-left text-sm font-medium text-gray-500">Stock</th>
-                <th class="hidden sm:block text-left text-sm font-medium text-gray-500">Price</th>
+                <th class="text-left text-sm font-medium text-gray-500">Price</th>
+                <th class="hidden sm:block text-left text-sm font-medium text-gray-500">Stock</th>
               </tr>
             </thead>
             <tbody>
@@ -38,9 +38,11 @@
                     <span>{{ data.price }}</span>
                   </div>
                 </td>
-                <td class="hidden sm:block whitespace-nowrap">
-                  <div class="pt-2">
-                    <LineChart class="w-28 h-12 -mx-2" :datasets="data.data" :increase="data.increase" />
+                <td class="py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <!-- <PlusThickIcon v-if="data.increase" :size="14" class="text-emerald-500" />
+                    <MinusThickIcon v-else :size="14" class="text-red-500" /> -->
+                    <span>{{ data.stock }}</span>
                   </div>
                 </td>
               </tr>

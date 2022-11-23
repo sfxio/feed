@@ -1,6 +1,7 @@
 export default {
+  target: 'static',
   head: {
-    title: 'NEFA',
+    title: 'Feed For TikTok Shop',
     htmlAttrs: {
       lang: 'en',
     },

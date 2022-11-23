@@ -3,7 +3,7 @@
     <!-- Hero section -->
     <section id="hero" class="w-full pb-24">
       <BaseSection>
-        <div class="col-span-12 lg:col-span-6 mt-12 xl:mt-10 space-y-4 sm:space-y-6 px-6 text-center sm:text-left">
+        <div class="col-span-12 lg:col-span-6 mt-12 xl:mt-10 space-y-4 sm:space-y-6 px-6 md:text-center sm:text-left">
           <div class="px-4 py-2 rounded-full bg-gradient-to-r from-[#468ef9] to-[#0c66ee] text-white inline-block">
             <span class="text-base font-semibold">Coming soon</span>
           </div>
@@ -29,7 +29,12 @@
                 class="max-w-full px-8 bg-gradient-to-r from-[#468ef9] to-[#0c66ee] border border-[#0c66ee] text-white rounded-md"
                 type="submit"
               >
-                Subscribe
+                <template v-if="isLoading">
+                  Loading...
+                </template>
+                <template v-else>
+                  Subscribe
+                </template>
               </BaseButton>
             </form>
             <!-- <BaseButton
@@ -166,7 +171,7 @@
 
     <!-- Advanced trading tools section -->
     <section
-      class="bg-trading-tools relative max-w-full sm:mx-4 mb-12 mt-10 lg:mt-40 py-16 shadow rounded-2xl overflow-hidden"
+      class="bg-trading-tools relative max-w-full sm:mx-4 mb-12 mt-10 lg:mt-20 py-16 shadow rounded-2xl overflow-hidden"
     >
       <div class="relative max-w-screen-xl px-4 sm:px-2 mx-auto grid grid-cols-12 gap-x-6">
         <LandingTradingToolImage class="sm:hidden" />
@@ -304,11 +309,14 @@
 
 <script>
 import aosMixin from '@/mixins/aos'
+import { submit } from '@/api'
+
 export default {
   name: 'IndexPage',
   mixins: [aosMixin],
   data() {
     return {
+      isLoading: false,
       email: '',
       selected: 0,
       dropdownConcurency: false,
@@ -337,7 +345,8 @@ export default {
         {
           id: 1,
           name: 'Graph-Ink Liquid Eyeliner Bundle',
-          price: '19,000',
+          stock: '19,000',
+          price: '$9.99',
           logo: 'product1.webp',
           increase: true,
           data: [40, 35, 60, 75, 60, 75, 50],
@@ -345,7 +354,8 @@ export default {
         {
           id: 2,
           name: 'Clear Whey Isolate Protein Powder - Myprotein',
-          price: 597,
+          stock: 597,
+          price: '$5.99',
           logo: 'product2.webp',
           increase: true,
           data: [25, 30, 60, 50, 80, 55, 80],
@@ -353,7 +363,8 @@ export default {
         {
           id: 3,
           name: 'Made By Mitchell Pencil/Liner Case',
-          price: '7,980',
+          stock: '7,980',
+          price: '$29.99',
           logo: 'product3.webp',
           increase: true,
           data: [40, 45, 40, 80, 50, 60, 35],
@@ -361,7 +372,8 @@ export default {
         {
           id: 4,
           name: 'By BEAUTY BAY Bright 42 Colour Palette',
-          price: '12,002',
+          stock: '12,002',
+          price: '$12.99',
           logo: 'product4.webp',
           increase: true,
           data: [35, 70, 60, 80, 50, 60, 40],
@@ -372,7 +384,8 @@ export default {
           id: 1,
           name:
             'DIHOclub Cow Ceramic Cup Hidden 3D Animal Inside Mug,Cute Cartoon Handmade Figurine Mugs,Holiday and Birthday Gift for Coffee Milk Tea Lovers,12 OZ',
-          price: '43,180',
+          stock: '43,180',
+          price: '$99.99',
           logo: 'product5.webp',
           increase: true,
           data: [40, 35, 60, 75, 60, 75, 50],
@@ -380,7 +393,8 @@ export default {
         {
           id: 2,
           name: '[Curlady] Shaping Low Back Bodysuit',
-          price: '3,480',
+          stock: '3,480',
+          price: '$39.99',
           logo: 'product6.webp',
           increase: true,
           data: [25, 30, 60, 50, 80, 55, 80],
@@ -388,7 +402,8 @@ export default {
         {
           id: 3,
           name: 'Go.G.G Super-stretch long sleeve Jumpsuit',
-          price: 150,
+          stock: 150,
+          price: '$49.99',
           logo: 'product7.webp',
           increase: true,
           data: [40, 45, 40, 80, 50, 60, 35],
@@ -396,7 +411,8 @@ export default {
         {
           id: 4,
           name: 'Luxury Jewellery Advent Calendar with Crystals from Swarovski',
-          price: '1,572',
+          stock: '1,572',
+          price: '$19.99',
           logo: 'product8.webp',
           increase: true,
           data: [35, 70, 60, 80, 50, 60, 40],
@@ -405,8 +421,9 @@ export default {
       recents: [
         {
           id: 1,
-          name: "2 for £10 Pick'n'Mix Sweets Bags (2 x 1kg)",
-          price: '3,180',
+          name: "2 for $10 Pick'n'Mix Sweets Bags (2 x 1kg)",
+          stock: '3,180',
+          price: '$10.00',
           logo: 'product9.webp',
           increase: true,
           data: [40, 35, 60, 75, 60, 75, 50],
@@ -414,7 +431,8 @@ export default {
         {
           id: 2,
           name: 'Garnier Skin Active Micellar Water Facial Cleanser for Sensitive Skin 700ml',
-          price: '8,280',
+          stock: '8,280',
+          price: '$39.99',
           logo: 'product10.webp',
           increase: true,
           data: [25, 30, 60, 50, 80, 55, 80],
@@ -422,7 +440,8 @@ export default {
         {
           id: 3,
           name: 'The Christmas Outfit',
-          price: 250,
+          stock: 250,
+          price: '$9.99',
           logo: 'product11.webp',
           increase: true,
           data: [40, 45, 40, 80, 50, 60, 35],
@@ -431,7 +450,8 @@ export default {
           id: 4,
           name:
             'Fabric Shaver, Portable Rechargeable Ball Remover, Clothes Shaver, Electric Hair Ball Trimmer, Portable Sweater Shaver,USB Rechargeable Fluff Remover Bobble Remover for Clothes Fabric',
-          price: '2,572',
+          stock: '2,572',
+          price: '$24.99',
           logo: 'product12.webp',
           increase: true,
           data: [35, 70, 60, 80, 50, 60, 40],
@@ -457,18 +477,20 @@ export default {
       ],
       steps: [
         {
-          img: 'sign-up.png',
+          img: 'set-up.svg',
           title: 'Setup',
           description: "Set your eCommerce platform stores', and TikTok Shop stores’ currency only in Pound Sterling",
         },
         {
-          img: 'fund.png',
+          style: { paddingTop: '40px' },
+          img: 'mapping.svg',
           title: 'Create category mapping',
           description:
             "The first thing is to sync your products from your eCommerce platform stores with the Feed for TikTok Shop. Here's how to do it:",
         },
         {
-          img: 'buy-crypto.png',
+          style: { paddingTop: '52px' },
+          img: 'sync.svg',
           title: 'Do Product syncing',
           description:
             'Once the category mapping is done for all your products, you can sync them to your TikTok Shop. Please note that they will be treated as new product listings after the syncing.',
@@ -477,7 +499,16 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {},
+    async handleSubmit() {
+      this.isLoading = true
+      try {
+        await submit({
+          email: this.email,
+        })
+      } finally {
+        this.isLoading = false
+      }
+    },
   },
 }
 </script>
